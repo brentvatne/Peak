@@ -1,4 +1,19 @@
 {
-  "name": "Beak",
-  "displayName": "Beak"
+  "expo": {
+    "name": "Beak",
+    "slug": "beak",
+    "privacy": "public",
+    "sdkVersion": "18.0.0",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "primaryColor": "#cccccc",
+    "loading": {
+      "hideExponentText": true,
+      "icon": "./assets/icons/loading-icon.png",
+      "backgroundColor": "#ffffff"
+    },
+    "packagerOpts": {
+      "assetExts": ["ttf"]
+    }
+  }
 }

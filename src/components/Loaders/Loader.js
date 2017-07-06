@@ -1,24 +1,26 @@
-
 import React, { Component } from 'react';
 import {
+  ActivityIndicator,
   View,
   Text,
   Dimensions,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
-import Spinner from 'react-native-spinkit'
-const {windowHeight } = Dimensions.get('window');
+const { windowHeight } = Dimensions.get('window');
 
-const Loader = (props) =>{
+const Loader = props => {
   return (
-  <View style={{backgroundColor:props.backColor, flex:1,height:windowHeight, justifyContent:'center',alignItems:'center'}}>
-    <Spinner
-          isVisible={true} 
-          type={props.type}
-          color={props.color}
-          size={props.loaderSize}
-      />
-  </View>)
-}
+    <View
+      style={{
+        backgroundColor: props.backColor,
+        flex: 1,
+        height: windowHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+      <ActivityIndicator color={props.color} size="large" />
+    </View>
+  );
+};
 
-export default Loader
+export default Loader;

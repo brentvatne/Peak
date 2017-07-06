@@ -1,9 +1,10 @@
-import { combineReducers } from 'redux'
-import user from './user'
-import tweets from './tweets'
+import { combineReducers } from 'redux';
+import user from './user';
+import tweets from './tweets';
 
 const reducers = combineReducers({
-  user, tweets
-})
+  user,
+  tweets,
+});
 
-export default reducers
+export default reducers;
