@@ -1,29 +1,26 @@
 import * as actionTypes from './actionTypes';
 
-// lolnope
-// var Twitter = require('twitter-node-client').Twitter;
-
-var config = require('../../../twitter_config.json');
+const TIMELINE_ENDPOINT =
+  'https://wt-579a528974090c0172cf8cecab01ea26-0.run.webtask.io/webtask/timeline';
 
 export const fetchTweets = () => {
   return function(dispatch, getState) {
-    // var twitter = new Twitter(config);
-    // var error = (err, response, body) => {
-    //   //dispatch error
-    // };
-    // var success = response => {
-    //   var data = JSON.parse(response);
-    //   dispatch(setTweets(data));
-    // };
-    // twitter.getUserTimeline(
-    //   {
-    //     user_id: '' + getState().user.userID,
-    //     count: '30',
-    //     include_rts: 'false',
-    //   },
-    //   error,
-    //   success
-    // );
+    (async () => {
+      try {
+        let idToken = getState().user.idToken;
+        let response = await fetch(TIMELINE_ENDPOINT, {
+          headers: {
+            Authorization: `Bearer ${idToken}`,
+          },
+        });
+
+        let data = await response.json();
+        dispatch(setTweets(data));
+      } catch (e) {
+        alert('Unable to fetch tweets :(');
+        console.log({ e });
+      }
+    })();
   };
 };
 

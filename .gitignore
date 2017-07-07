@@ -1,5 +1,6 @@
 # OSX
 #
+.vscode
 .DS_Store
 
 # Xcode
@@ -52,3 +53,4 @@ fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
 .expo
+webtask/deploy

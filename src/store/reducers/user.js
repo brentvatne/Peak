@@ -1,5 +1,4 @@
 import * as actionTypes from '../actions/actionTypes';
-import * as grader from '../../utils/grader';
 
 var initialState = {
   init: false,
@@ -7,11 +6,11 @@ var initialState = {
   userName: '',
   name: '',
   userID: '',
-  authToken: '',
-  authTokenSecret: '',
   error: false,
   tweets: [],
   imageURL: null,
+  idToken: '',
+  accessToken: '',
 };
 
 const user = (state = initialState, action) => {
@@ -27,6 +26,7 @@ const user = (state = initialState, action) => {
         error: true,
       };
     case actionTypes.SET_USER:
+      console.log(action);
       return {
         ...state,
         userName: action.userName,
@@ -35,13 +35,10 @@ const user = (state = initialState, action) => {
         authToken: action.authToken,
         authTokenSecret: action.authTokenSecret,
         error: false,
-        imageURL: '',
-      };
-    case actionTypes.SET_PROFILE:
-      return {
-        ...state,
-        name: action.name,
+        idToken: action.idToken,
+        accessToken: action.accessToken,
         imageURL: action.imageURL,
+        name: action.name,
       };
     case actionTypes.LOG_OUT:
       return {

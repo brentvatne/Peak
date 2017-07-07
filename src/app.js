@@ -1,4 +1,3 @@
-import { AsyncStorage } from 'react-native';
 import React, { Component } from 'react';
 import Loader from './components/Loaders/Loader';
 import Home from './components/home';

@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import TweetCard from '../Card/TweetCard';
 class TimeLinePres extends Component {
   render() {
     return (
-      <View>
-        <FlatList
-          scrollEnabled={false}
-          data={this.props.tweets}
-          keyExtractor={this._keyExtractor}
-          renderItem={this._renderItem}
-        />
-      </View>
+      <FlatList
+        style={{ flex: 1 }}
+        data={this.props.tweets}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderItem}
+      />
     );
   }
   _keyExtractor = (item, index) => item.id;

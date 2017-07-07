@@ -9,16 +9,18 @@ const gradeTweet = text => {
 };
 
 const tweets = (state = [], action) => {
+  let nextState = state;
   switch (action.type) {
     case actionTypes.SET_TWEETS:
-      return {
+      nextState = {
         ...state,
         tweets: action.tweets,
         grades: gradeTweets(action.tweets),
         tweetsReady: true,
       };
-    default:
-      return state;
+
   }
+
+  return nextState;
 };
 export default tweets;

@@ -1,15 +1,17 @@
 {
   "expo": {
-    "name": "Beak",
-    "slug": "beak",
+    "name": "Peak",
+    "slug": "peak",
+    "description": "Toy app created within a week which uses SMOG algorithm to find out what school grade your tweets are.",
     "privacy": "public",
     "sdkVersion": "18.0.0",
     "version": "1.0.0",
     "orientation": "portrait",
     "primaryColor": "#cccccc",
+    "icon": "./icon.png",
     "loading": {
-      "hideExponentText": true,
-      "icon": "./assets/icons/loading-icon.png",
+      "hideExponentText": false,
+      "icon": "./icon.png",
       "backgroundColor": "#ffffff"
     },
     "packagerOpts": {

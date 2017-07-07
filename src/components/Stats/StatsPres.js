@@ -6,10 +6,9 @@ import AverageGrade from '../Card/AverageGrade';
 class TimeLinePres extends Component {
   render() {
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <AverageGrade avgGrade={this.props.avgGrade} />
         <FlatList
-          scrollEnabled={false}
           data={this.props.topTweets.tweets}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}

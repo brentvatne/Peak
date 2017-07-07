@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
 import Loader from './Loaders/Loader';
 import User from './User/User';
 import { connect } from 'react-redux';
 import { getfixedURL } from '../store/selectors/image';
 import { fetchTweets } from '../store/actions/tweets';
-import { fetchProfile } from '../store/actions/user';
 
 class Home extends Component {
   componentDidMount() {
-    this.props.fetchProfile();
     this.props.fetchTweets();
   }
 
@@ -33,9 +30,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  fetchProfile: profile => {
-    dispatch(fetchProfile());
-  },
   fetchTweets: tweets => {
     dispatch(fetchTweets());
   },

@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Card } from 'react-native-card-view';
-import { Icon } from 'react-native-elements';
-import GradeSufix from './GradeSuffix';
 import TweetBadge from './TweetBadge';
 import UserNames from './UserNames';
 import StatsInfo from './StatsInfo';
@@ -34,9 +32,11 @@ const styles = StyleSheet.create({
   topContainer: {
     flexDirection: 'row',
     flex: 1,
+    flex: 1,
   },
   cardContainer: {
     flex: 1,
+    alignSelf: 'stretch',
     margin: 8,
   },
   textContainer: {

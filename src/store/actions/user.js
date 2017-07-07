@@ -1,7 +1,6 @@
 import * as actionTypes from './actionTypes';
 import { AsyncStorage, Linking } from 'react-native';
 import { Constants, WebBrowser } from 'expo';
-import jwtDecoder from 'jwt-decode';
 
 const redirectUri = `${Constants.linkingUri}/redirect`;
 const auth0ClientId = 'uvXXr01WqefMfY7twAkKBPy3OXat4Ntx';
@@ -35,18 +34,11 @@ async function _handleAuth0RedirectAsync(event, dispatch) {
 
     const accessToken = responseObj.access_token;
     const idToken = responseObj.id_token;
-    // const encodedToken = responseObj.id_token;
-    // const decodedToken = jwtDecoder(encodedToken);
-
-    console.log({ responseObj });
-    console.log({ decodedToken });
 
     let profile = await _fetchProfileAsync(accessToken);
     let session = { accessToken, idToken, ...profile };
-    // console.log(session);
-    // console.log(setUser(session));
-    // dispatch(setUser(session));
-    // AsyncStorage.setItem('session', JSON.stringify(session));
+    dispatch(setUser(session));
+    AsyncStorage.setItem('session', JSON.stringify(session));
   } catch (e) {
     console.log({ e });
     dispatch(errorLoadingUser());
@@ -56,26 +48,28 @@ async function _handleAuth0RedirectAsync(event, dispatch) {
 let _signInCallback;
 
 export const signIn = () => {
-  return async function(dispatch) {
-    _signInCallback = event => {
-      _handleAuth0RedirectAsync(event, dispatch);
-    };
+  return function(dispatch) {
+    (async () => {
+      _signInCallback = event => {
+        _handleAuth0RedirectAsync(event, dispatch);
+      };
 
-    Linking.addEventListener('url', _signInCallback);
+      Linking.addEventListener('url', _signInCallback);
 
-    const redirectionURL =
-      `${auth0Domain}/authorize` +
-      _toQueryString({
-        client_id: auth0ClientId,
-        response_type: 'token',
-        scope: 'openid name',
-        redirect_uri: redirectUri,
-        connection: 'twitter',
-        state: redirectUri,
-      });
+      const redirectionURL =
+        `${auth0Domain}/authorize` +
+        _toQueryString({
+          client_id: auth0ClientId,
+          response_type: 'token',
+          scope: 'openid name',
+          redirect_uri: redirectUri,
+          connection: 'twitter',
+          state: redirectUri,
+        });
 
-    await WebBrowser.openBrowserAsync(redirectionURL);
-    Linking.removeEventListener('url', _signInCallback);
+      await WebBrowser.openBrowserAsync(redirectionURL);
+      Linking.removeEventListener('url', _signInCallback);
+    })();
   };
 };
 export const setUser = session => ({
@@ -84,6 +78,8 @@ export const setUser = session => ({
   idToken: session.idToken,
   userName: session.screen_name,
   userID: session.identities[0].user_id,
+  imageURL: session.picture,
+  name: session.name,
   authorized: true,
   error: false,
 });
@@ -101,27 +97,10 @@ export const loadUser = () => {
 
 export const logOut = () => {
   return function(dispatch, getState) {
-    // FabricTwitterKit.logOut(); //Doesnt work. Issue: https://github.com/tkporter/react-native-fabric-twitterkit/issues/33
     AsyncStorage.removeItem('session');
     dispatch(logOutAction());
   };
 };
-
-export const fetchProfile = () => {
-  return function(dispatch) {
-    // FabricTwitterKit.fetchProfile((error, profile) => {
-    //   if (profile !== undefined) {
-    //     dispatch(setProfile(profile));
-    //   }
-    // });
-  };
-};
-
-export const setProfile = profile => ({
-  type: actionTypes.SET_PROFILE,
-  name: profile.name,
-  imageURL: profile.profile_image_url_https,
-});
 
 export const logOutAction = () => ({
   type: actionTypes.LOG_OUT,

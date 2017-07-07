@@ -1,51 +1,30 @@
 import React, { Component } from 'react';
-import { Dimensions, Alert, ScrollView } from 'react-native';
+import { Alert, View } from 'react-native';
 import TweetsData from './TweetsData';
-import ParallaxScrollView from 'react-native-parallax-scrollview';
 import Loader from '../Loaders/Loader';
-
-const { height: windowHeight } = Dimensions.get('window');
 
 class UserPresentation extends Component {
   render() {
     return (
-      <ParallaxScrollView
-        windowHeight={windowHeight}
-        backgroundSource={require('../../../img/twitterColor.jpg')}
-        navBarTitle="Peak"
-        navBarColor="black"
-        userName={this.props.name}
-        userTitle={'@' + this.props.user}
-        userImage={this.props.imageURL}
-        leftIcon={{
-          name: 'logout',
-          color: 'white',
-          size: 22,
-          type: 'simple-line-icon',
-        }}
-        leftIconOnPress={() => this.showConfirmationMessage()}
-        rightIcon={{
-          name: 'magnifier',
-          color: 'white',
-          size: 22,
-          type: 'simple-line-icon',
-        }}
-        rightIconOnPress={() => this.showSearch()}>
-        <ScrollView style={{ backgroundColor: '#FAFAFA' }}>
-          {this.props.tweetsReady
-            ? <TweetsData />
-            : <Loader
-                color="white"
-                type="Pulse"
-                loaderSize={300}
-                backColor="#FAFAFA"
-              />}
-        </ScrollView>
-      </ParallaxScrollView>
+      <View style={{ backgroundColor: '#FAFAFA', flex: 1 }}>
+        {this.props.tweetsReady
+          ? <TweetsData
+              name={this.props.name}
+              username={`@${this.props.user}`}
+              imageURL={this.props.imageURL}
+              onPressSignOut={this.showConfirmationMessage}
+            />
+          : <Loader
+              color="#1da1f3"
+              type="Pulse"
+              loaderSize={300}
+              backColor="#FAFAFA"
+            />}
+      </View>
     );
   }
 
-  showConfirmationMessage() {
+  showConfirmationMessage = () => {
     Alert.alert(
       'Hey!',
       'Are you sure you want to log out?',
@@ -60,7 +39,7 @@ class UserPresentation extends Component {
       ],
       { cancelable: true }
     );
-  }
+  };
   showSearch() {
     Alert.alert('Sorry!', 'Search not implemented yet', {
       cancelable: true,
