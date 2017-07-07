@@ -1,11 +1,7 @@
-Toy app created within a week which uses [SMOG](https://en.wikipedia.org/wiki/SMOG) algorithm to find out what school grade your tweets are.
+A fork of [aschenkel/Peak](https://github.com/aschenkel/Peak) that uses:
 
-[Demo](https://youtu.be/jHoGybJSTGw)
+- Expo (instead of react-native-cli)
+- SFSafariViewController / Chrome Custom Tabs + Auth0 for Twitter authentication (instead of react-native-fabric-twitterkit)
+- A [WebTask](https://webtask.io/) along with a non-interactive Auth0 client to call securely into Twitter (adapted from [this example](https://github.com/vikasjayaram/twitter-status-webtask)) (instead of storing secrets on client and polyfilling node core APIs to use a node Twitter client)
 
-
-TODO
-- Add tests
-- Add search functionality
-
-*Inspired by* [*going from nothing to product hunt in 4 hours*](https://medium.com/@johnnylin/going-from-nothing-to-product-hunt-in-4-hours-89cfb67977b3)
-
+Play with it at: https://expo.io/@community/peak
